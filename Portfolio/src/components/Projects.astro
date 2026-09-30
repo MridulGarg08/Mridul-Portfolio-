@@ -25,7 +25,9 @@ const otherProjects = projectsData.filter(p => !p.featured);
                   alt={project.imageAlt || project.title} 
                   class="featured-img"
                   transition:name={`project-image-${project.id}`}
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
+                  onerror="this.style.visibility='hidden'"
                   width="800"
                   height="450"
                 />

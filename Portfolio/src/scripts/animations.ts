@@ -10,9 +10,14 @@ let lenisInstance: Lenis | null = null;
 export function initAnimations() {
   // Check prefers-reduced-motion
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  
+
   // Add 'js' class to html element for progressive enhancement
   document.documentElement.classList.add('js');
+
+
+  // Safety: clear any previous run so reveal tweens never stack on each other
+  ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  gsap.set('.line-content, .reveal-fade, .section-title-underline', { clearProps: 'all' });
 
   if (prefersReducedMotion) {
     // Reveal all elements immediately
@@ -239,9 +244,9 @@ function setupScrollReveals() {
     }
 
     if (underline) {
-      tl.fromTo(underline, 
-        { scaleX: 0 }, 
-        { scaleX: 1, duration: 0.6, ease: 'power3.out' }, 
+      tl.fromTo(underline,
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.6, ease: 'power3.out' },
         '-=0.5'
       );
     }
@@ -316,8 +321,8 @@ function setupTimelineAnimation() {
   const timelineNodes = document.querySelectorAll('.timeline-item');
 
   if (timelineContainer && lineProgress) {
-    gsap.fromTo(lineProgress, 
-      { scaleY: 0 }, 
+    gsap.fromTo(lineProgress,
+      { scaleY: 0 },
       {
         scaleY: 1,
         ease: 'none',
