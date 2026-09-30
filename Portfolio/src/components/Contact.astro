@@ -1,0 +1,105 @@
+---
+import { personalData } from '../data/personal';
+---
+
+<section id="contact" class="section">
+  <div class="container">
+    <div class="contact-box reveal-fade">
+      <div class="mask-line section-title-line">
+        <h2 class="line-content contact-title">Let's Work Together</h2>
+      </div>
+      <span class="section-title-underline"></span>
+
+      <p class="contact-description">
+        I'm currently available for full-time roles, engineering consultation, and collaborative projects. If you have an exciting project or opportunity, feel free to reach out.
+      </p>
+
+      <div class="contact-actions">
+        <a href={`mailto:${personalData.links.email}`} class="btn btn-primary btn-lg btn-magnetic">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+          <span>{personalData.links.email}</span>
+        </a>
+
+        <button id="copy-email-btn" type="button" class="btn btn-secondary btn-magnetic" title="Copy email address to clipboard" data-email={personalData.links.email}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+          </svg>
+          <span id="copy-btn-text">Copy Email</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-box {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl) var(--space-xl);
+    text-align: left;
+    max-width: 800px;
+    transition: var(--transition-subtle);
+  }
+
+  .contact-box:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .contact-title {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    margin-bottom: 0.25rem;
+  }
+
+  .contact-description {
+    font-size: 1.075rem;
+    color: var(--text-muted);
+    margin-top: 1.25rem;
+    margin-bottom: var(--space-xl);
+    max-width: 60ch;
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn-lg {
+    padding: 0.85rem 1.6rem;
+    font-size: 1rem;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.getElementById('copy-email-btn');
+    const copyText = document.getElementById('copy-btn-text');
+
+    copyBtn?.addEventListener('click', async () => {
+      const email = copyBtn.getAttribute('data-email');
+      if (!email) return;
+
+      try {
+        await navigator.clipboard.writeText(email);
+        if (copyText) {
+          const original = copyText.textContent;
+          copyText.textContent = 'Copied!';
+          copyBtn.style.borderColor = 'var(--color-accent)';
+          setTimeout(() => {
+            copyText.textContent = original;
+            copyBtn.style.borderColor = '';
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Failed to copy email: ', err);
+      }
+    });
+  });
+</script>

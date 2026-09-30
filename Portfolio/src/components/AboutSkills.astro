@@ -1,0 +1,189 @@
+---
+import { personalData, skillsData } from '../data/personal';
+---
+
+<section id="about" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">About & Stack</h2>
+      <span class="section-title-underline"></span>
+    </div>
+
+    <!-- Metric Counters Grid -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-counter" data-counter="99" data-suffix="%+">99%+</div>
+        <div class="metric-label">Lighthouse Performance & Accessibility</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-counter" data-counter="50" data-suffix="k+">50k+</div>
+        <div class="metric-label">Daily Active Users Served</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-counter" data-counter="42" data-suffix="%">42%</div>
+        <div class="metric-label">Bundle Size Reduction Achieved</div>
+      </div>
+    </div>
+
+    <div class="about-grid">
+      <!-- Bio column -->
+      <div class="bio-column">
+        <p class="bio-text">
+          {personalData.bio}
+        </p>
+        <p class="bio-text">
+          I care deeply about clean system architecture, code readability, low runtime overhead, and web accessibility. When I'm not writing code, I actively contribute to open-source software and write technical notes on distributed systems.
+        </p>
+
+        <div class="location-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="location-icon">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <span>Based in <strong>{personalData.location}</strong></span>
+        </div>
+      </div>
+
+      <!-- Skills categories column -->
+      <div class="skills-column">
+        <h3 class="skills-heading">Technical Stack</h3>
+        <div class="skills-categories">
+          {skillsData.map(group => (
+            <div class="skill-category-card">
+              <h4 class="category-name">{group.category}</h4>
+              <ul class="skill-list" aria-label={`${group.category} list`}>
+                {group.skills.map(skill => (
+                  <li class="skill-item">{skill}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .metric-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-align: left;
+    transition: var(--transition-subtle);
+  }
+
+  .metric-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-3px);
+  }
+
+  .metric-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+    }
+  }
+
+  .bio-text {
+    font-size: 1.025rem;
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+    color: var(--text-muted);
+  }
+
+  .location-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-surface-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin-top: 1.5rem;
+    width: fit-content;
+  }
+
+  .location-icon {
+    color: var(--color-accent);
+  }
+
+  .skills-heading {
+    font-size: 1.15rem;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+  }
+
+  .skills-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .skill-category-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    transition: var(--transition-subtle);
+  }
+
+  .skill-category-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .category-name {
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+  }
+
+  .skill-item {
+    font-size: 0.825rem;
+    font-family: var(--font-mono);
+    background-color: var(--bg-surface-subtle);
+    color: var(--text-main);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    transition: var(--transition-subtle);
+  }
+
+  .skill-item:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+</style>

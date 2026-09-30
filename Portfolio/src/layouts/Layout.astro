@@ -1,0 +1,109 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { personalData } from '../data/personal';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = `${personalData.name} — ${personalData.role}`,
+  description = `${personalData.name} is a ${personalData.role}. ${personalData.oneLiner}`,
+  image = "/projects/devflow.jpg"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://alexchen.dev');
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+
+  <!-- Primary Meta Tags -->
+  <title>{title}</title>
+  <meta name="title" content={title} />
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(image, canonicalURL)} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonicalURL} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={new URL(image, canonicalURL)} />
+
+  <!-- Astro View Transitions Router -->
+  <ClientRouter />
+
+  <!-- Blocking Theme Script to prevent FOUC -->
+  <script is:inline>
+    (function() {
+      try {
+        const savedTheme = localStorage.getItem('theme-preference');
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        } else {
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        }
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Scroll Progress Indicator Bar -->
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Custom Cursor Element for Desktop -->
+  <div id="custom-cursor" class="custom-cursor" aria-hidden="true">View</div>
+
+  <!-- Main Site Header -->
+  <Header />
+
+  <!-- Main Page Content -->
+  <main id="main-content">
+    <slot />
+  </main>
+
+  <!-- Main Site Footer -->
+  <Footer />
+
+  <!-- GSAP & Lenis Animation Script with View Transitions lifecycle hooks -->
+  <script>
+    import { initAnimations, cleanupAnimations } from '../scripts/animations';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initAnimations();
+    });
+
+    document.addEventListener('astro:page-load', () => {
+      initAnimations();
+    });
+
+    document.addEventListener('astro:before-swap', () => {
+      cleanupAnimations();
+    });
+  </script>
+</body>
+</html>

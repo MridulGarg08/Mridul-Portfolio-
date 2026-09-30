@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Projects from '../components/Projects.astro';
+import AboutSkills from '../components/AboutSkills.astro';
+import Experience from '../components/Experience.astro';
+import Contact from '../components/Contact.astro';
+import { personalData } from '../data/personal';
+---
+
+<Layout title={`${personalData.name} — ${personalData.role}`}>
+  <Hero />
+  <Projects />
+  <AboutSkills />
+  <Experience />
+  <Contact />
+</Layout>

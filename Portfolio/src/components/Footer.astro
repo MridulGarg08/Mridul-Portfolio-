@@ -1,0 +1,101 @@
+---
+import { personalData } from '../data/personal';
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-container">
+    <div class="footer-left">
+      <p class="copyright">
+        &copy; {currentYear} {personalData.name}. All rights reserved.
+      </p>
+      <p class="footer-subtext">Built with Astro & Plain CSS. Designed for speed & accessibility.</p>
+    </div>
+
+    <div class="footer-right">
+      <ul class="footer-links" aria-label="Social links">
+        <li><a href={personalData.links.github} target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a></li>
+        <li><a href={personalData.links.linkedin} target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></li>
+        <li><a href={`mailto:${personalData.links.email}`} class="footer-link">Email</a></li>
+      </ul>
+
+      <a href="#hero" class="back-to-top" aria-label="Back to top of page">
+        <span>Back to top</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m18 15-6-6-6 6"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-page);
+    margin-top: auto;
+  }
+
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .copyright {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+
+  .footer-subtext {
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: var(--text-faint);
+    margin-bottom: 0;
+  }
+
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    list-style: none;
+  }
+
+  .footer-link {
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--color-accent);
+  }
+
+  .back-to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .back-to-top:hover {
+    color: var(--color-accent);
+  }
+</style>

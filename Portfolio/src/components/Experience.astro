@@ -1,0 +1,149 @@
+---
+import { experienceData } from '../data/personal';
+---
+
+<section id="experience" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="mask-line section-title-line">
+        <h2 class="line-content section-title">Experience</h2>
+      </div>
+      <span class="section-title-underline"></span>
+      <p class="reveal-fade">Career highlights and engineering roles.</p>
+    </div>
+
+    <div class="timeline">
+      <!-- Vertical Timeline Progress Line -->
+      <div class="timeline-line-track" aria-hidden="true">
+        <div class="timeline-line-progress"></div>
+      </div>
+
+      {experienceData.map((exp) => (
+        <article class="timeline-item reveal-fade">
+          <!-- Scalable Dot Node -->
+          <div class="timeline-node-dot" aria-hidden="true"></div>
+
+          <div class="timeline-header">
+            <div>
+              <h3 class="role-title">{exp.role}</h3>
+              <p class="company-name">{exp.company}</p>
+            </div>
+            <time class="period-badge">{exp.period}</time>
+          </div>
+
+          <p class="role-description">{exp.description}</p>
+
+          {exp.highlights && exp.highlights.length > 0 && (
+            <ul class="highlights-list">
+              {exp.highlights.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  /* Timeline Line Track & Progress Bar */
+  .timeline-line-track {
+    position: absolute;
+    left: 8px;
+    top: 1.5rem;
+    bottom: 1.5rem;
+    width: 2px;
+    background-color: var(--border-color);
+  }
+
+  .timeline-line-progress {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-accent);
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+
+  .timeline-item {
+    position: relative;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    transition: var(--transition-subtle);
+  }
+
+  .timeline-node-dot {
+    position: absolute;
+    left: -2.35rem;
+    top: 1.75rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    border: 3px solid var(--bg-page);
+    box-shadow: 0 0 0 2px var(--color-accent);
+    z-index: 2;
+  }
+
+  .timeline-item:hover {
+    border-color: var(--color-accent);
+    transform: translateX(4px);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .timeline-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .role-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  .company-name {
+    font-size: 0.925rem;
+    color: var(--color-accent);
+    margin-bottom: 0;
+    font-weight: 500;
+  }
+
+  .period-badge {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background-color: var(--bg-surface-subtle);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+  }
+
+  .role-description {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .highlights-list {
+    margin-left: 1.2rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .highlights-list li {
+    margin-bottom: 0.25rem;
+  }
+</style>
